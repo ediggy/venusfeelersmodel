@@ -81,19 +81,17 @@
             LTLSPEC G(forward -> !pin)
             LTLSPEC G(pin -> !forward)
             LTLSPEC G((pp30 | pr30 | bar | drop) -> X(pin))
-            LTLSPEC G(pin -> (X(!forward & !reverse) -> XX(reverse)))
+            LTLSPEC G((pin & (pp30 | pr30 | bar | drop))-> (X(!forward & !reverse) -> X(X(reverse))))
             LTLSPEC G((reverse & pp30) -> F(!pp30 & !pin))
             LTLSPEC G((reverse & pr30) -> F(!pr30 & !pin))
             LTLSPEC G((reverse & bar) -> F(!bar & !pin))
             LTLSPEC G((reverse & drop) -> F(!drop & !pin))
-        
+            
             -- NASA Specifications negated to find counter examples
             LTLSPEC !(G((pp30 | pr30) -> F(pin)))
-            LTLSPEC !(G((!pp30 & !pr30) -> !pin))
+            LTLSPEC !(G(!(pp30 | pr30 | bar | drop) -> X(!pin)))
             LTLSPEC !(G(bar -> F(pin)))
-            LTLSPEC !(G(!bar -> !pin))
-            LTLSPEC !(G(drop -> F(pin)))
-            LTLSPEC !(G(!drop -> !pin))</code>
+            LTLSPEC !(G(drop -> F(pin)))</code>
     </pre>
     <a href="bugtestmodel.html">Click Here to view model with known bugs removed</a>
     <h2>Specifications</h2>
@@ -171,7 +169,7 @@
         </tr>
 
       </table>
-    <h2>Results</h2>
+    <h2>Results of LTLSPEC from nuXmv</h2>
     <pre>
         <code>
             -- specification  G (forward -> !pin)  is true
@@ -254,9 +252,23 @@
     </pre>
     <h2>Step by Step Instructions</h2>
         <ol>
-            <li></li>
-            <li></li>
+            <li>
+                Go to the websites for <a href="https://www.youtube.com/watch?v=lHNq7KklkB4">Venus Feelers Rover Design</a> and <a href="https://www.herox.com/VenusRover">Venus Rover Design Challenge</a> and build your model and specifications from the designs. Note that some of the design is not available on the video. The authors are currently attempting to get permission to release the PDF design from the designer. One piece of information that is not displayed on the video is that the pitch and roll are two separate components that are activated by the pendulums described in the video.
+            </li>
+
+            <li>
+                Define your variables and create a state space model using your favorite techniques. We followed examples from <a href="https://fuuu.be/polytech/INFOF408/Introduction-To-The-Theory-Of-Computation-Michael-Sipser.pdf">Michael Sipser's Introduction to the Theory of Computation and <a href="https://is.ifmo.ru/books/_principles_of_model_checking.pdf"></a>Baier and Katoen's book on Principles of Model Checking</a>.
+            </li>
+
+            <li>
+                Write your code based on the specifications you made in 1 and 2, and check your model against your ltl specifications.
+            </li>
+            <li>
+                Celebrate a job well done!
+            </li>
         </ol>
     <h2>Additional</h2>
+    <a href="resources/slides.pdf">Presentation Slides</a>
+
 </body>
 </html>
